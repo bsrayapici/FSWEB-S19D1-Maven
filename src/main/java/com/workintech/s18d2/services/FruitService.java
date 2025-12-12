@@ -7,10 +7,10 @@ import java.util.List;
 public interface FruitService {
     Fruit save(Fruit fruit);
     List<Fruit> findAll();
-    Fruit findById(Long id);
-    void deleteById(Long id);
+    Fruit getById(Long id);
+    Fruit delete(Long id);
 
-    List<Fruit> findAllByOrderByPriceAsc();
-    List<Fruit> findAllByOrderByPriceDesc();
-    List<Fruit> findByNameContaining(String name);
+    List<Fruit> getByPriceAsc();
+    List<Fruit> getByPriceDesc();
+    List<Fruit> searchByName(String name);
 }

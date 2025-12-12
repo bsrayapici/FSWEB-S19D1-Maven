@@ -1,5 +1,6 @@
 package com.workintech.s18d2.services;
 
+import com.workintech.s18d2.exceptions.PlantException;
 import com.workintech.s18d2.repository.FruitRepository;
 import com.workintech.s18d2.entity.Fruit;
 import com.workintech.s18d2.exceptions.InvalidDataException;
@@ -14,16 +15,12 @@ import java.util.List;
 public class FruitServiceImpl implements FruitService {
     private final FruitRepository fruitRepository;
 
-
     public FruitServiceImpl(FruitRepository fruitRepository) {
         this.fruitRepository = fruitRepository;
     }
 
     @Override
     public Fruit save(Fruit fruit) {
-        if(fruit.getName() == null || fruit.getPrice() == null) {
-            throw new InvalidDataException("Name or Price cannot be null.");
-        }
         return fruitRepository.save(fruit);
     }
 
@@ -33,42 +30,38 @@ public class FruitServiceImpl implements FruitService {
     }
 
     @Override
-    public Fruit findById(Long id) {
+    public Fruit getById(Long id) {
         IdValidator.validate(id);
-        return fruitRepository.findById(id).orElseThrow(()-> new NotFoundException("Fruit not found: " + id));
+        return fruitRepository.findById(id).orElseThrow(()-> new PlantException("Fruit not found: " + id));
     }
 
-
     @Override
-    public void deleteById(Long id) {
-
+    public Fruit delete(Long id) {
         IdValidator.validate(id);
+        var fruit = fruitRepository.findById(id).orElseThrow(()-> new NotFoundException("Fruit not found: " + id));
 
-        // Silinecek kayıt gerçekten var mı?
-        if (!fruitRepository.existsById(id)) {
-            throw new NotFoundException("Fruit not found with id: " + id);
-        }
+        fruitRepository.delete(fruit);
+        return fruit;
+    }
 
-        fruitRepository.deleteById(id);
+
+    @Override
+    public List<Fruit> getByPriceAsc() {
+        return fruitRepository.getByPriceAsc();
     }
 
     @Override
-    public List<Fruit> findAllByOrderByPriceAsc() {
-        return fruitRepository.findAllByOrderByPriceAsc();
+    public List<Fruit> getByPriceDesc() {
+        return fruitRepository.getByPriceDesc();
     }
 
     @Override
-    public List<Fruit> findAllByOrderByPriceDesc() {
-        return fruitRepository.findAllByOrderByPriceDesc();
-    }
-
-    @Override
-    public List<Fruit> findByNameContaining(String name) {
+    public List<Fruit> searchByName(String name) {
 
         if (name == null || name.isEmpty()) {
             throw new InvalidDataException("Name cannot be empty");
         }
 
-        return fruitRepository.findByNameContaining(name);
+        return fruitRepository.searchByName(name);
     }
 }

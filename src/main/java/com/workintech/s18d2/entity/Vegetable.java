@@ -25,4 +25,10 @@ public class Vegetable {
     @NotNull(message = "Price cannot be null")
     @Min(value = 1, message = "Price must be at least 1")
     private Double price;
+
+    private Boolean GrownOnTree;
+
+    public boolean isGrownOnTree() {
+        return GrownOnTree != null && GrownOnTree;
+    }
 }

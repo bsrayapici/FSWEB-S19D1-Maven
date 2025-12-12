@@ -1,18 +1,14 @@
 package com.workintech.s18d2.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "fruit")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Fruit {
@@ -29,6 +25,6 @@ public class Fruit {
     private Double price;
 
     @NotNull(message = "Fruit type cannot be null")
-    private FruitType type;
+    private FruitType fruitType;
 
 }
