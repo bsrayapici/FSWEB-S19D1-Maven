@@ -33,7 +33,7 @@ public class FruitController {
 
     @GetMapping("/desc")
     public List<Fruit> getFruitsDesc() {
-        return fruitService.getByPriceDesc();
+        return fruitService.getByPriceDesc() ;
     }
 
     @GetMapping("/name/{name}")
@@ -43,7 +43,7 @@ public class FruitController {
 
     @DeleteMapping("/{id}")
     public void deleteFruitById(@PathVariable Long id) {
-        fruitService.delete(id);
+        fruitService.delete(id) ;
     }
 
 }
