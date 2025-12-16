@@ -1,30 +1,67 @@
 package com.workintech.s18d2.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
 
 @Entity
-@Table(name = "fruit")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "fruit", schema = "fsweb")
 public class Fruit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Fruit name cannot be empty")
+    @Column(name = "name")
     private String name;
 
-    @NotNull(message = "Price cannot be null")
-    @Min(value = 1, message = "Price must be at least 1")
+    @Column(name = "price")
     private Double price;
 
-    @NotNull(message = "Fruit type cannot be null")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fruit_type")
     private FruitType fruitType;
 
+    // Parametresiz constructor
+    public Fruit() {
+    }
+
+    // Parametreli constructor
+    public Fruit(Long id, String name, Double price, FruitType fruitType) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.fruitType = fruitType;
+    }
+
+    // Getter ve Setter metodları
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public FruitType getFruitType() {
+        return fruitType;
+    }
+
+    public void setFruitType(FruitType fruitType) {
+        this.fruitType = fruitType;
+    }
 }

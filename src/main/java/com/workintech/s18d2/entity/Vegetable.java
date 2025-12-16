@@ -1,34 +1,66 @@
 package com.workintech.s18d2.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "vegetable")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "vegetable", schema = "fsweb")
 public class Vegetable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Vegetable name cannot be empty")
+    @Column(name = "name")
     private String name;
 
-    @NotNull(message = "Price cannot be null")
-    @Min(value = 1, message = "Price must be at least 1")
+    @Column(name = "price")
     private Double price;
 
-    private Boolean GrownOnTree;
+    @Column(name = "is_grown_on_tree")
+    private Boolean isGrownOnTree;
 
-    public boolean isGrownOnTree() {
-        return GrownOnTree != null && GrownOnTree;
+    // Parametresiz constructor
+    public Vegetable() {
+    }
+
+    // Parametreli constructor
+    public Vegetable(Long id, String name, Double price, Boolean isGrownOnTree) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.isGrownOnTree = isGrownOnTree;
+    }
+
+    // Getter ve Setter metodları
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean isGrownOnTree() {
+        return isGrownOnTree;
+    }
+
+    public void setGrownOnTree(Boolean grownOnTree) {
+        isGrownOnTree = grownOnTree;
     }
 }
